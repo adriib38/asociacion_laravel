@@ -22,6 +22,4 @@
         <p>Asistentes: {{ $asistentes }}</p>
     </div>
 
-
-
 @endsection

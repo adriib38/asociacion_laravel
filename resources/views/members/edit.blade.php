@@ -39,7 +39,6 @@
         <input class="bg-green" type="submit" value="Guardar">
     </form>
 
-
     @if($errors->any())
         Hay errores en el formulario: <br>
         <ul>

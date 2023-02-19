@@ -5,11 +5,6 @@
 @section('contenido')
     <h1>Eventos</h1>
 
-    @auth
-        {{-- Solo los usuarios logeados podrán acceder a la creación de eventos --}}
-        <a href="{{ route('events.create') }}">Crear evento</a>
-    @endauth
-
         {{-- Imprimir todos los eventos --}}
         <section id="events-list">
             <h2>Proximos eventos.</h2>

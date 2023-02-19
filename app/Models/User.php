@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+    //Relacion muchos a muchos con eventos
     public function events()
     {
         return $this->belongsToMany(Event::class);

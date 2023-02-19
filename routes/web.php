@@ -26,15 +26,12 @@ Route::get('/', function () {
 /**
  * Rutas de eventos. Para el metodo show se pasara por el middleware de autenticacion
  */
-
 Route::resource('events', EventController::class)
 ->parameters(['events' => 'event'])
 ->names([
     'index' => 'events.index',
-    'create' => 'events.create',
     'store' => 'events.store',
     'show' => 'events.show',
-    'edit' => 'events.edit',
     'update' => 'events.update',
     'destroy' => 'events.destroy',
 ]);
@@ -43,11 +40,10 @@ Route::resource('events', EventController::class)
 Route::get('events/signup/{event}', [EventController::class, 'signup'])->name('events.signup');
 Route::get('events/unsignup/{event}', [EventController::class, 'unsignup'])->name('events.unsignup');
 
-
+//Middleware de autenticacion
 Route::middleware(["auth"])->group(function (){
     Route::resource('events', EventController::class)->only(['show']);
 });
-
 
 /**
  * Rutas de miembros
@@ -62,7 +58,6 @@ Route::resource('members', UsersController::class)
     'store' => 'members.store',
     'update' => 'members.update',
 ])->except(['destroy']);
-
 
 /**
  * Rutas de mensajes
@@ -81,12 +76,11 @@ Route::get('donde_estamos', function () {
     return view('donde_estamos');
 })->name('donde_estamos');
 
-/* Solo admins */
+/* Middleware de administrador */
 Route::middleware(["isAdmin"])->group(function (){
-    Route::resource('events', EventController::class)->only(['edit']);
+    Route::resource('events', EventController::class)->only(['edit', 'create']);
     Route::resource('messages', MessageController::class)->only(['index', 'show']);
 });
-
 
 /* AUTH */
 Route::get('register', [LoginController::class, 'registerForm']);

@@ -18,8 +18,9 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //Para mostrar a los miembros se accede a la tabla de usuarios
+        //Obtiene todos los usuarios
         $members = User::all();
+        //Redirige a la vista de la lista de usuarios
         return view('members.index', compact('members'));
     }
 
@@ -75,12 +76,14 @@ class UsersController extends Controller
      */
     public function update(EditUserRequest $request, User $member)
     {
+        //Actualiza los datos del usuario
         $request->password = Hash::make($request->get('password'));
         $member->birthday = $request->get('birthday');
         $member->instagram = $request->get('instagram');
         $member->twitter = $request->get('twitter');
         $member->twitch = $request->get('twitch');
         
+        //Si se recibe una foto de perfil desde el formulario se actualiza la ruta en la base de datos y se guarda la foto en el servidor
         if($request->hasFile('photo')) {
            $file = $request->file('photo');
            $destinationPath = 'images/users/';
@@ -89,11 +92,10 @@ class UsersController extends Controller
            $member->profile_photo_path = $destinationPath . $filename;
         }
 
-        
+        //Guarda el usuario
         $member->save();
-        
+        //Redirige a la vista del usuario
         return redirect()->route('members.show', $member);
-
     }
 
     /**

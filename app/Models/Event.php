@@ -9,6 +9,7 @@ class Event extends Model
 {
     use HasFactory;
 
+    //Relacion muchos a muchos con usuarios
     public function users()
     {
         return $this->belongsToMany(User::class);

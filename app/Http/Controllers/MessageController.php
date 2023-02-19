@@ -39,12 +39,7 @@ class MessageController extends Controller
      */
     public function store(MessagesRequest $request)
     {
-        //Validar
-        $request->validate([
-            'subject' => 'required',
-            'text' => 'required',
-        ]);
-
+ 
         //Crear mensaje
         $message = new Message();
         $message->name = $request->name;
@@ -64,8 +59,11 @@ class MessageController extends Controller
      */
     public function show(Message $message)
     {
+        //Marca el mensaje como leído
         $message->readed = 1;
+        //Guarda el mensaje
         $message->save();
+        //Redirige a la vista del mensaje
         return view('messages.show', compact('message'));
     }
 
@@ -102,8 +100,7 @@ class MessageController extends Controller
     {
         //Elimina el mensaje
         $message->delete();
-
+        //Redirige a la vista del formulario de mensajes
         return redirect()->route('messages.create');
-
     }
 }

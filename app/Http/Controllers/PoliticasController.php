@@ -25,6 +25,4 @@ class PoliticasController extends Controller
     {
         return view('politicas.terminos_y_condiciones');
     }
-
-
 }
